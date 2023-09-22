@@ -1,0 +1,38 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+          {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {"PYTHONPATH":"${workspaceRoot}", "CUDA_VISIBLE_DEVICES":"0"},
+            "program": "${file}",
+            "args": [
+                "--data_path","/home/lixc/Downloads/data/caml-mimic/mimicdata/mimic3/train_50.csv", 
+                "--vocab","/home/lixc/Downloads/data/caml-mimic/mimicdata/mimic3/vocab.csv",
+                "--Y", "50", 
+                "--model","conv_attn", 
+                "--n_epochs","1",
+                "--filter-size", "10",
+                "--num-filter-maps","50", 
+                "--dropout", "0.2" ,
+                "--patience", "10" ,
+                "--criterion" ,"prec_at_8", 
+                "--lr" ,"0.0001", 
+                
+                "--embed-file","/home/lixc/Downloads/data/caml-mimic/mimicdata/mimic3/processed_full.embed", 
+               
+                "--gpu",  
+                "--samples",  
+               
+                                          
+  
+]
+        }
+    ]
+}

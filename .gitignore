@@ -6,6 +6,7 @@
 *.swp
 *.tsv
 *.png
+*.json
 .ipynb_checkpoints/*
 notebooks/.ipynb_checkpoints/*
 saved_models/*

@@ -22,10 +22,14 @@ def save_samples(data, output, target_data, s, filter_size, tp_file, fp_file, di
             fp_file: opened file to write false positive results
             dicts: hold info for reporting results in human-readable form
     """
-    tgt_codes = np.where(target_data[0] == 1)[0]
+    tgt_codes_id = np.where(target_data[0] == 1)[0]
+    tgt_codes = [dicts['ind2c'][i] for i in tgt_codes_id]
+   
+
     true_str = "Y_true: " + str(tgt_codes)
     output_rd = np.round(output)
-    pred_codes = np.where(output_rd[0] == 1)[0]
+    pred_codes_id = np.where(output_rd[0] == 1)[0]
+    pred_codes = [dicts['ind2c'][i] for i in pred_codes_id]
     pred_str = "Y_pred: " + str(pred_codes)
     if dicts is not None:
         if s is not None and len(pred_codes) > 0:

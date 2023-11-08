@@ -268,7 +268,7 @@ def test(model, Y, epoch, data_path, fold, gpu, version, code_inds, dicts, sampl
         #get an attention sample for 2% of batches
         get_attn = samples and (np.random.rand() < 0.02 or (fold == 'test' and testing))
         output, loss, alpha = model(data, target, desc_data=desc_data, get_attention=get_attn)
-
+        # alpha is the attention vector, wich is the U multipled by X (the input)  
         output = F.sigmoid(output)
         output = output.data.cpu().numpy()
         losses.append(loss.data.item())  # error?

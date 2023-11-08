@@ -23,6 +23,7 @@ def all_metrics(yhat, y, k=8, yhat_raw=None, calc_auc=True):
             k: for @k metrics
             yhat_raw: prediction scores matrix (floats)
         Outputs:
+
             dict holding relevant metrics
     """
     names = ["acc", "prec", "rec", "f1"]
@@ -85,7 +86,7 @@ def macro_f1(yhat, y):
     else:
         f1 = 2*(prec*rec)/(prec+rec)
     return f1
-
+  
 ###################
 # INSTANCE-AVERAGED
 ###################

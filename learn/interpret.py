@@ -33,8 +33,8 @@ def save_samples(data, output, target_data, s, filter_size, tp_file, fp_file, di
     pred_str = "Y_pred: " + str(pred_codes)
     if dicts is not None:
         if s is not None and len(pred_codes) > 0:
-            important_spans(data, output, tgt_codes, pred_codes, s, dicts, filter_size, true_str, pred_str, tp_file, fps=False)
-            important_spans(data, output, tgt_codes, pred_codes, s, dicts, filter_size, true_str, pred_str, fp_file, fps=True)
+            important_spans(data, output, tgt_codes_id, pred_codes_id, s, dicts, filter_size, true_str, pred_str, tp_file, fps=False)
+            important_spans(data, output, tgt_codes_id, pred_codes_id, s, dicts, filter_size, true_str, pred_str, fp_file, fps=True)
 
 def important_spans(data, output, tgt_codes, pred_codes, s, dicts, filter_size, true_str, pred_str, spans_file, fps=False):
     """
@@ -50,7 +50,7 @@ def important_spans(data, output, tgt_codes, pred_codes, s, dicts, filter_size, 
             code = ind2c[p_code]
             conf_str = "confidence of prediction: %f" % confidence
             typ = "false positive" if fps else "true positive"
-            prelude = "top three important windows for %s code %s (%s: %s)" % (typ, str(p_code), code, desc_dict[code])
+            prelude = "top three important windows for %s code %s (%s: %s)" % (typ, code, code, desc_dict[code])
             if spans_file is not None:
                 spans_file.write(conf_str + "\n")
                 spans_file.write(true_str + "\n")
@@ -58,7 +58,7 @@ def important_spans(data, output, tgt_codes, pred_codes, s, dicts, filter_size, 
                 spans_file.write(prelude + "\n")
 
             #find most important windows
-            attn = s[0][p_code].data.cpu().numpy()
+            attn = s[0][p_code].data.cpu().numpy() # 
             #merge overlapping intervals
             imps = attn.argsort()[-10:][::-1]
             windows = make_windows(imps, filter_size, attn)

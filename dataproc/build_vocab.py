@@ -63,7 +63,8 @@ def build_vocab(vocab_min, infile, vocab_filename):
             i += 1
         #clip trailing zeros
         note_occur = note_occur[note_occur>0]  # could it delete some indices at the early positions?
-
+        # probably not, since the indices are assigned in the order of appearance
+        
         #turn vocab into a list so indexing doesn't get fd up when we drop rows
         vocab_list = np.array([word for word,ind in sorted(vocab.items(), key=operator.itemgetter(1))])
 

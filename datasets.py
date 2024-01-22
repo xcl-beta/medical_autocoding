@@ -79,7 +79,7 @@ class Batch:
 
     def to_ret(self):
         return np.array(self.docs), np.array(self.labels), np.array(self.hadm_ids), self.code_set,\
-               np.array(self.descs)
+               self.descs # np.array(align_desc_vecs(self.descs))
 
 def pad_desc_vecs(desc_vecs):
     #pad all description vectors in a batch to have the same length
@@ -90,6 +90,19 @@ def pad_desc_vecs(desc_vecs):
             vec.extend([0] * (desc_len - len(vec)))
         pad_vecs.append(vec)
     return pad_vecs
+
+def align_desc_vecs(desc_vecs):
+    #align all description vectors in a batch to have the same length
+    d_len = max([len(d) for dv in desc_vecs for d in dv])
+    align_vecs = []
+    for vec in desc_vecs:
+        align_vs =[]
+        for v in vec:
+            if len(v) < d_len:
+                v = v + [0] * (d_len - len(v)) 
+            align_vs.append(v)
+        align_vecs.append(align_vs)
+    return align_vecs
 
 def data_generator(filename, dicts, batch_size, num_labels, desc_embed=False, version='mimic3'):
     """
@@ -110,8 +123,8 @@ def data_generator(filename, dicts, batch_size, num_labels, desc_embed=False, ve
         next(r)
         cur_inst = Batch(desc_embed)
         for row in r:
-            #find the next `batch_size` instances
-            if len(cur_inst.docs) == batch_size:
+            #find the next `batch_size` instances # accumulate `batch_size` instances
+            if len(cur_inst.docs) == batch_size:  
                 cur_inst.pad_docs()
                 yield cur_inst.to_ret()
                 #clear

@@ -237,7 +237,7 @@ def results_by_type(Y, mdir, version='mimic3'):
     diag_golds = defaultdict(lambda: set([]))
     proc_golds = defaultdict(lambda: set([]))
     golds = defaultdict(lambda: set())
-    test_file = '%s/test_%s.csv' % (MIMIC_3_DIR, str(Y)) if version == 'mimic3' else '%s/test.csv' % MIMIC_2_DIR
+    test_file = '%s/test_%s.csv' % (PROJECT_DIR, str(Y)) if version == 'mimic3' else '%s/test.csv' % MIMIC_2_DIR
     with open(test_file, 'r') as f:
         r = csv.reader(f)
         #header
